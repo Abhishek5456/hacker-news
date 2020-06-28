@@ -58,10 +58,13 @@ public class APICall {
 		try {
 			for (long commentId : commentIds) {
 				Comment comment = restTemplate.getForObject(baseURL + "/item/" + commentId + ".json", Comment.class);
+				System.out.println("CommentId: "+ comment.getId());
+				System.out.println("User: "+ comment.getBy());
 				if (null != comment.getBy() && !comment.getBy().isEmpty()) {
 					comment.setUser(getUserDetail(comment.getBy()));
 				}
-				if (null != comment.getKids() && comment.getKids().length != 0) {
+				//System.out.println("Kids: "+ comment.getKids().toString());
+				if (null != comment.getKids()) {
 					List<Long> subCommentIds = Arrays.stream(comment.getKids()).boxed().collect(Collectors.toList());
 					comment.setSubComments(getComments(subCommentIds));
 				}

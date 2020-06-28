@@ -21,8 +21,13 @@ public class ResponseComment {
 		this.id = id;
 		this.text = text;
 		this.handle = handle;
+		if(years ==0) {
+			this.years =0;
+		}
+		else {
 		this.years = LocalDateTime.now().getYear()
 				- LocalDateTime.ofInstant(Instant.ofEpochSecond(years), TimeZone.getDefault().toZoneId()).getYear();
+		}
 	}
 
 	public long getId() {

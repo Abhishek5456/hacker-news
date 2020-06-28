@@ -28,8 +28,15 @@ public class Transform {
 		List<ResponseComment> responseComments = new ArrayList<>();
 
 		for (Comment comment : comments) {
-			ResponseComment responseComment = new ResponseComment(comment.getId(), comment.getText(),
-					comment.getUser().getId(), comment.getUser().getCreated());
+			ResponseComment responseComment = null;
+			if(null != comment.getUser()) {
+				responseComment = new ResponseComment(comment.getId(), comment.getText(),
+						comment.getUser().getId(), comment.getUser().getCreated());	
+			}
+			else {
+				responseComment = new ResponseComment(comment.getId(), comment.getText(),
+						"", 0);
+			}
 			if (null != comment.getSubComments() && comment.getSubComments().size() != 0) {
 				List<ResponseComment> subComments = TransformtoResponseComment(comment.getSubComments());
 				responseComment.setSubcomments(subComments);
